@@ -20,7 +20,6 @@ export const generatePDF = async (files, pageSize = 'auto') => {
                 const ratio = imgWidth / imgHeight;
 
                 let pageOrientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
-                let pdfWidth, pdfHeight;
 
                 if (pageSize === 'auto') {
                     // Use pixel dimensions converted to mm (roughly) or just use points
@@ -42,12 +41,12 @@ export const generatePDF = async (files, pageSize = 'auto') => {
                     let format = formats[formatRaw] || formats.a4;
 
                     // If landscape, swap width/height for page creation
-                    let pageWidth = formats[formatRaw].width;
-                    let pageHeight = formats[formatRaw].height;
+                    let pageWidth = format.width;
+                    let pageHeight = format.height;
 
                     if (pageOrientation === 'landscape') {
-                        pageWidth = formats[formatRaw].height;
-                        pageHeight = formats[formatRaw].width;
+                        pageWidth = format.height;
+                        pageHeight = format.width;
                     }
 
                     doc.addPage([pageWidth, pageHeight], pageOrientation);
